@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+.btn{
+  border: 0px;
+  background-color: azure;
+  padding: 10px;
+  text-decoration: underline;
+}
+.btn:hover{
+  background-color: lightblue;
+}
