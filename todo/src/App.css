@@ -1,6 +1,17 @@
 .App {
   text-align: center;
 }
+button:hover{
+   box-shadow: 1px 1px 1px black;
+}
+.in{
+  border: 0px;
+  border-bottom: 2px solid black;
+  width: 70%;
+}
+.in:focus{
+
+}
 .icon-btn{
    border: 0px;
    background: white;
