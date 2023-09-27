@@ -17,6 +17,8 @@ function App() {
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [dialogValue, setDialogValue] = useState<string>("");
   const onDialogDone=  useRef<( (newVal: string) => void ) | null>(null);
+
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const isEdit = useRef<boolean>(false);
   const [todos, setTodos] = useState<Todo[]>([])
   const addTodo = ()=>{
@@ -32,7 +34,7 @@ function App() {
   }
  // style={{width: '100vw', height: '100vh'}}
   return (
-   <>
+   <div className={isDarkMode ? 'dark' : '' }>
           <Dialog show={showDialog} onClose={()=>setShowDialog(false)}>
             {/*style={{width: '100%', height: '20%', display:'flex', flexDirection:'column', alignItems: 'center', gap: '40px'}} */}
             <div  className='w-full h-1/5 flex flex-col items-center gap-10'>
@@ -61,13 +63,18 @@ function App() {
             </div>
             
          </Dialog>
-      <div className='bg-white w-screen h-screen flex justify-center' >
+      <div className='bg-white  dark:bg-slate-600 w-screen h-screen flex justify-center'   >
   
          {/*   style = {{position: 'fixed', left: '0', top: '0'}} width={'5%'}  height={'10%'}*/ }
          <img className='fixed left-0 top-0 w-1/12 h-1/12' src='logo' />
+         <div  className='fixed right-0 top-0 w-1/12 h-1/12 gap-2 flex'> 
+            <input name='dm' type='checkbox' onChange={e=>setIsDarkMode(e.target.checked)}/>
+            <label className='dark:text-white'> Other Color Mode</label>
+         </div>
+       
          {/* style={{width: '50%', background: 'silver', height: '96vh', borderRadius: '20px'}} */}
    
-            <div id='main-container' className='w-1/2 rounded-xl bg-slate-300 text-center flex flex-col justify-start align-center'>
+            <div id='main-container' className='dark:bg-white dark:text-black   w-1/2 rounded-xl bg-slate-300 text-center flex flex-col justify-start align-center'>
                   <h1 className='text-2xl mb-4'>Todo Lists</h1>
                   {todos.map((todo, index) =>{
                      return <Todo  
@@ -84,7 +91,7 @@ function App() {
          onClick={addTodo}
          style={{borderRadius: '100%', position: 'fixed', fontSize:'2rem',color: 'white', right: '10px', bottom: '10px', width: '70px', height: '70px', background: 'green'}}>+</button>
       </div>
-    </>
+    </div>
   );
 }
 
