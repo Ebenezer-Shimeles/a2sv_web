@@ -47,17 +47,17 @@ const Todo = (props: TodoProps)=>{
    return ( <>
             {
                 !isDeleted &&
-        
-                <div style={{display: 'flex', justifyContent: 'space-evenly', width: '90%', background: 'white', padding:'5px',
+                /**  style={{display: 'flex', justifyContent: 'space-evenly', width: '90%', background: 'white', padding:'5px',
                             margin: '5px'
             
                 }
                 
-                }>
+                } */
+                <div className="flex justify-evenly w-10/12 bg-white p-1 m-1">
                     <input size={50} type="checkbox" onChange={onChanged} checked={isChecked}/>
                     <span   style={texStyle}>{todo}</span>
                     <span   style={texStyle}>{props.dateCreated.toString()}</span>
-                    <div>
+                    <div className="flex gap-4 justify-between">
                         <button   style={{...flatButtonStyle, color: 'blue'}} onClick={editMode}>Edit</button>
                         <button   style={{...flatButtonStyle, color: 'red'}} onClick={_=>setIsDeleted(true)}>Delete</button>
                     </div>
