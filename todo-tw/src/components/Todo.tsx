@@ -55,11 +55,11 @@ const Todo = (props: TodoProps)=>{
                 }
                 
                 } */
-                <div className="flex justify-evenly w-10/12 bg-white p-1 m-1">
+                <div className="flex justify-evenly w-10/12 bg-white p-1 m-1 sm:text-xs md:text-sm text-md">
                     <input size={50} type="checkbox" onChange={onChanged} checked={isChecked}/>
                 
                     <span  className={textClass}>{todo}</span>
-                    <span  className={textClass}>{props.dateCreated.toString()}</span>
+                    <span  className={textClass + ' sm:hidden md:block'  }>{props.dateCreated.toString()}</span>
                     <div className="flex gap-4 justify-between">
                         <button  className="border-0 " onClick={editMode}>Edit</button>
                         <button  className="text-red-600 border-0" onClick={_=>setIsDeleted(true)}>Delete</button>
