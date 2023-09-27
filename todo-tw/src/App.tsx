@@ -67,7 +67,7 @@ function App() {
          <img className='fixed left-0 top-0 w-1/12 h-1/12' src='logo' />
          {/* style={{width: '50%', background: 'silver', height: '96vh', borderRadius: '20px'}} */}
    
-            <div id='main-container' className='w-1/2 rounded-xl bg-slate-300 text-center'>
+            <div id='main-container' className='w-1/2 rounded-xl bg-slate-300 text-center flex flex-col justify-start align-center'>
                   <h1 className='text-2xl mb-4'>Todo Lists</h1>
                   {todos.map((todo, index) =>{
                      return <Todo  

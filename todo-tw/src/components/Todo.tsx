@@ -15,12 +15,14 @@ export type TodoProps = {
 const Todo = (props: TodoProps)=>{
    const [isChecked, setIsChecked] = useState<boolean>(props.isChecked);
    const [isDeleted, setIsDeleted] = useState<boolean>(false)
-   const texStyle = {fontSize: '1.2rem', textDecoration: isChecked? 'line-through': 'none'};
-   const flatButtonStyle = {
-      border: '0px',
-      background: 'inherit'
+   { /*  const texStyle = {fontSize: '1.2rem', textDecoration: isChecked? 'line-through': 'none'}; */}
+   const textClass = (isChecked ? 'line-through' : '' ) + ' text-l';
+//    const flatButtonStyle = {
+//       border: '0px',
+//       background: 'inherit'
       
-   };
+//    };
+   const flabButtonClass = 'border';
 
    
    const [todo, setTodo] = useState<string>(props.todo);
@@ -55,11 +57,12 @@ const Todo = (props: TodoProps)=>{
                 } */
                 <div className="flex justify-evenly w-10/12 bg-white p-1 m-1">
                     <input size={50} type="checkbox" onChange={onChanged} checked={isChecked}/>
-                    <span   style={texStyle}>{todo}</span>
-                    <span   style={texStyle}>{props.dateCreated.toString()}</span>
+                
+                    <span  className={textClass}>{todo}</span>
+                    <span  className={textClass}>{props.dateCreated.toString()}</span>
                     <div className="flex gap-4 justify-between">
-                        <button   style={{...flatButtonStyle, color: 'blue'}} onClick={editMode}>Edit</button>
-                        <button   style={{...flatButtonStyle, color: 'red'}} onClick={_=>setIsDeleted(true)}>Delete</button>
+                        <button  className="border-0 " onClick={editMode}>Edit</button>
+                        <button  className="text-red-600 border-0" onClick={_=>setIsDeleted(true)}>Delete</button>
                     </div>
                 </div>
             }
