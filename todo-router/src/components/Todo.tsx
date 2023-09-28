@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { ctx } from "../TodoContext";
+import { useNavigate } from "react-router-dom";
 
 export type TodoProps = {
    isChecked: boolean;
@@ -19,7 +20,7 @@ export type TodoProps = {
 };
 
 const Todo = (props: TodoProps)=>{
-
+   const nav = useNavigate();
 
    const texStyle = {fontSize: '1.2rem', textDecoration: props.isChecked ? 'line-through': 'none'};
    const [index, setIndex] = useState(props.index)
@@ -40,19 +41,7 @@ const Todo = (props: TodoProps)=>{
    }
    const editMode = ()=>
    {
-      console.log('Going to edit mode')
-      props.setOnEdit(true);
-      props.setDialogValue(todo)
-      props.setDialogVisible(true);
-      props.setOnDialogDone(
-        (newValue)=> {
-            console.log('setting todo to ', newValue)
-            setTodo(newValue);
-            props.setOnEdit(false);
-            props.setDialogVisible(false);
-        }
-
-     )
+       nav(`/edit/${index}`)
 
    }
    return ( <>
