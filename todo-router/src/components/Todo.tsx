@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ctx } from "../TodoContext";
 
 export type TodoProps = {
    isChecked: boolean;
+
+
+
    clearDialog: ()=>void;
    setOnDialogDone: (  func: (newVal: string) => void  )=>void;
    setDialogVisible: (b: boolean)=>void;
@@ -9,23 +13,30 @@ export type TodoProps = {
    dateCreated: Date;
    index: number;
    setDialogValue: (newVal: string)=>void;
+   isDeleted: boolean
    setOnEdit: (newVal: boolean)=>void;
+   
 };
 
 const Todo = (props: TodoProps)=>{
-   const [isChecked, setIsChecked] = useState<boolean>(props.isChecked);
-   const [isDeleted, setIsDeleted] = useState<boolean>(false)
-   const texStyle = {fontSize: '1.2rem', textDecoration: isChecked? 'line-through': 'none'};
+
+
+   const texStyle = {fontSize: '1.2rem', textDecoration: props.isChecked ? 'line-through': 'none'};
+   const [index, setIndex] = useState(props.index)
+
    const flatButtonStyle = {
+
       border: '0px',
       background: 'inherit'
       
    };
+   const {deleteTodo, checkTodo, } = useContext(ctx);
 
    
    const [todo, setTodo] = useState<string>(props.todo);
    const onChanged = ()=>{
-       setIsChecked(!isChecked);
+       checkTodo(index)
+     
    }
    const editMode = ()=>
    {
@@ -46,7 +57,7 @@ const Todo = (props: TodoProps)=>{
    }
    return ( <>
             {
-                !isDeleted &&
+                !props.isDeleted &&
         
                 <div style={{display: 'flex', justifyContent: 'space-evenly', width: '90%', background: 'white', padding:'5px',
                             margin: '5px'
@@ -54,12 +65,16 @@ const Todo = (props: TodoProps)=>{
                 }
                 
                 }>
-                    <input size={50} type="checkbox" onChange={onChanged} checked={isChecked}/>
+                    <input size={50} type="checkbox" onChange={onChanged} checked={props.isChecked}/>
                     <span   style={texStyle}>{todo}</span>
                     <span   style={texStyle}>{props.dateCreated.toString()}</span>
                     <div>
                         <button   style={{...flatButtonStyle, color: 'blue'}} onClick={editMode}>Edit</button>
-                        <button   style={{...flatButtonStyle, color: 'red'}} onClick={_=>setIsDeleted(true)}>Delete</button>
+                        <button   style={{...flatButtonStyle, color: 'red'}} onClick={()=>{
+                            console.log('deleting index ', index)
+                            deleteTodo(index)
+                           
+                        }}>Delete</button>
                     </div>
                 </div>
             }
