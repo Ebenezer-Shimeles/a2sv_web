@@ -71,12 +71,12 @@ const Todo = (props: TodoProps)=>{
                 
                     <span  className={textClass}>{props.index} {todo}</span>
                     <span  className={textClass + ' sm:hidden md:block'  }>{props.dateCreated.toString()}</span>
-                    {/* <div className="flex gap-4 justify-between">
+                    <div className="flex gap-4 justify-between">
                         <button  className="border-0 " onClick={editMode}>Edit</button>
-                        <button  className="text-red-600 border-0" onClick={ ()=>{
+                        {/* <button  className="text-red-600 border-0" onClick={ ()=>{
                             dispatch(removeTask(props.index))
-                        }}>Delete</button>
-                    </div> */}
+                        }}>Delete</button> */}
+                    </div>
                 </div>
             }
             </>
