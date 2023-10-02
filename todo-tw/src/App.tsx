@@ -24,7 +24,8 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const isEdit = useRef<boolean>(false);
 //   const [todos, setTodos] = useState<Todo[]>([])
-  const todos = useSelector( (d: any)=>d.tasks.task)
+  const todos = useSelector( (d: any)=>d.task.tasks)
+
   const addTodo = ()=>{
       isEdit.current = false;
       setDialogValue("");
@@ -32,8 +33,8 @@ function App() {
 
   };
   const regTodo = ()=>{
-      //setTodos([...todos, {dateCreated: new Date(), todo: dialogValue, isChecked: false}]);
-      dispatch(addTask({createAt: new Date(), todo: dialogValue, isChecked: false}))
+     
+      dispatch(addTask({dateCreated: new Date(), todo: dialogValue, isChecked: false}))
       setShowDialog(false);
       onDialogDone.current = null;
   }
