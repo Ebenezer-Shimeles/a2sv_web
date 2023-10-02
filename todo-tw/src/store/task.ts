@@ -42,12 +42,24 @@ const task = createSlice({
             if(index >= state.tasks.length || index < 0){
                 throw new Error("Error this index is wrong")
             }
-            state.tasks.splice(index, 1);
+            console.log(`Removing index ${index} = ${state.tasks[index].todo}`)
+            const newState:any = []
+            // state.tasks.splice(index, 1);
+            for(let i=0;i<state.tasks.length;i++){
+                if(i!=index){
+                    newState.push(state.tasks[index])
+                }
+
+            }
+
+    
+            console.log(newState)
             let i = 0;
-           for(const task of state.tasks){
+           for(const task of newState){
                task.i = i;
                i ++
            }
+           return {...state, tasks:newState}
 
         },
         editTask:(state, action)=>{

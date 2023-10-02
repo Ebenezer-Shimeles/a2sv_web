@@ -38,7 +38,7 @@ function App() {
   };
   const regTodo = ()=>{
      
-      dispatch(addTask({dateCreated: new Date(), todo: dialogValue, isChecked: false}))
+      dispatch(addTask({todo: dialogValue, isChecked: false, dateCreated: (new Date()).toDateString(), }))
       dispatch(setDialogVis(false));
       onDialogDone.current = null;
   }
@@ -48,7 +48,7 @@ function App() {
           <Dialog show={showDialog} onClose={()=>    dispatch(setDialogVis(false))}>
             {/*style={{width: '100%', height: '20%', display:'flex', flexDirection:'column', alignItems: 'center', gap: '40px'}} */}
             <div  className='w-full h-1/5 flex flex-col items-center gap-10'>
-               <input onChange={e=>    dispatch(setDialogVis(e.target.value))}  value={dialogValue} className ='in' type='text' placeholder='Todo info' />
+               <input onChange={e=>    dispatch(setDialogVal(e.target.value))}  value={dialogValue} className ='in' type='text' placeholder='Todo info' />
                <button style={{flex: '0', 'border': '0px', background: 'green', borderRadius:'5px',  
                      paddingTop: '14px',
                      paddingBottom: '14px',
@@ -90,9 +90,10 @@ function App() {
                   <h1 className='text-2xl mb-4'>Todo Lists</h1>
                   {todos.map((todo: any, index: number) =>{
                      return <Todo  
+                  //   key={`tsk-${index}`}
                      setDialogValue={val=> dispatch(setDialogVal(val))}
-                     setDialogVisible={(newValue)=>   dispatch(setDialogVis(false))}
-                     index={index} isChecked={todo.isChecked} todo={todo.todo} dateCreated={todo.dateCreated}
+                     setDialogVisible={(newValue)=>   dispatch(setDialogVis(newValue))}
+                     index={todo.i} isChecked={todo.isChecked} todo={todo.todo} dateCreated={todo.dateCreated}
                                     setOnDialogDone={(f)=> { onDialogDone.current = f ; console.log('setting on dialog done =', onDialogDone.current);}} clearDialog={()=> dispatch(setDialogVal(""))}
                                     setOnEdit={(newVal) => isEdit.current = newVal}
                      />
