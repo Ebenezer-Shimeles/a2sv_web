@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Dialog from './components/Dialog';
 import { Todo } from './components/Todo';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from './store/task';
 
 
 
@@ -17,10 +19,12 @@ function App() {
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [dialogValue, setDialogValue] = useState<string>("");
   const onDialogDone=  useRef<( (newVal: string) => void ) | null>(null);
+  const dispatch = useDispatch();
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const isEdit = useRef<boolean>(false);
-  const [todos, setTodos] = useState<Todo[]>([])
+//   const [todos, setTodos] = useState<Todo[]>([])
+  const todos = useSelector( (d: any)=>d.tasks.task)
   const addTodo = ()=>{
       isEdit.current = false;
       setDialogValue("");
@@ -28,7 +32,8 @@ function App() {
 
   };
   const regTodo = ()=>{
-      setTodos([...todos, {dateCreated: new Date(), todo: dialogValue, isChecked: false}]);
+      //setTodos([...todos, {dateCreated: new Date(), todo: dialogValue, isChecked: false}]);
+      dispatch(addTask({createAt: new Date(), todo: dialogValue, isChecked: false}))
       setShowDialog(false);
       onDialogDone.current = null;
   }
@@ -76,7 +81,7 @@ function App() {
    
             <div id='main-container' className='dark:bg-white dark:text-black   w-1/2 rounded-xl bg-slate-300 text-center flex flex-col justify-start align-center'>
                   <h1 className='text-2xl mb-4'>Todo Lists</h1>
-                  {todos.map((todo, index) =>{
+                  {todos.map((todo: any, index: number) =>{
                      return <Todo  
                      setDialogValue={val=>setDialogValue(val)}
                      setDialogVisible={(newValue)=>setShowDialog(newValue)}
