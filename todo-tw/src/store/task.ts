@@ -56,16 +56,27 @@ const task = createSlice({
                 throw new Error("Error this index is wrong " + index)
             }
             state.tasks[index].todo  = action.payload.newTask;
-        }
+        } ,
+        setDialogVis: (state, action)=>{
+             state.dialogVisible = action.payload;
+
+        },
+        setDialogVal: (state, action)=>{
+            state.dialogValue = action.payload;
+
+       }
+   
     
     },
     initialState:{
-        tasks:  [] as Task[]
+        tasks:  [] as Task[],
+        dialogVisible: false,
+        dialogValue: ''
     }
 })
 
-const  {addTask, checkTask, removeTask, editTask, unCheckTask} = task.actions
+const  {addTask, checkTask, removeTask, editTask, unCheckTask, setDialogVal, setDialogVis} = task.actions
 
-export {addTask, checkTask, removeTask, editTask,unCheckTask }
+export {addTask, checkTask, removeTask, editTask,unCheckTask,  setDialogVal, setDialogVis }
 
 export default task.reducer

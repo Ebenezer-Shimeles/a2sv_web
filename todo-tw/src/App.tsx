@@ -4,7 +4,7 @@ import './App.css';
 import Dialog from './components/Dialog';
 import { Todo } from './components/Todo';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask } from './store/task';
+import { addTask, setDialogVal, setDialogVis } from './store/task';
 
 
 
@@ -16,8 +16,10 @@ interface Todo     {
   }
 
 function App() {
-  const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [dialogValue, setDialogValue] = useState<string>("");
+//   const [showDialog, setShowDialog] = useState<boolean>(false);
+//   const [dialogValue, setDialogValue] = useState<string>("");
+  const showDialog = useSelector( (d: any)=>d.task.dialogVisible)
+  const dialogValue = useSelector( (d: any)=>d.task.dialogValue)
   const onDialogDone=  useRef<( (newVal: string) => void ) | null>(null);
   const dispatch = useDispatch();
 
@@ -28,23 +30,25 @@ function App() {
 
   const addTodo = ()=>{
       isEdit.current = false;
-      setDialogValue("");
-      setShowDialog(true);
+     // setDialogValue("");
+      //setShowDialog(true);
+      dispatch(setDialogVal(""));
+      dispatch(setDialogVis(true));
 
   };
   const regTodo = ()=>{
      
       dispatch(addTask({dateCreated: new Date(), todo: dialogValue, isChecked: false}))
-      setShowDialog(false);
+      dispatch(setDialogVis(false));
       onDialogDone.current = null;
   }
  // style={{width: '100vw', height: '100vh'}}
   return (
    <div className={isDarkMode ? 'dark' : '' }>
-          <Dialog show={showDialog} onClose={()=>setShowDialog(false)}>
+          <Dialog show={showDialog} onClose={()=>    dispatch(setDialogVis(false))}>
             {/*style={{width: '100%', height: '20%', display:'flex', flexDirection:'column', alignItems: 'center', gap: '40px'}} */}
             <div  className='w-full h-1/5 flex flex-col items-center gap-10'>
-               <input onChange={e=>setDialogValue(e.target.value)}  value={dialogValue} className ='in' type='text' placeholder='Todo info' />
+               <input onChange={e=>    dispatch(setDialogVis(e.target.value))}  value={dialogValue} className ='in' type='text' placeholder='Todo info' />
                <button style={{flex: '0', 'border': '0px', background: 'green', borderRadius:'5px',  
                      paddingTop: '14px',
                      paddingBottom: '14px',
@@ -60,8 +64,10 @@ function App() {
                         else{
                               regTodo()
                         }
-                        setDialogValue("");
-                        setShowDialog(false);
+                        // setDialogValue("");
+                        // setShowDialog(false);
+                        dispatch(setDialogVal(""));
+                        dispatch(setDialogVis(false));
                      }
                   }
                >Done</button>
@@ -84,10 +90,10 @@ function App() {
                   <h1 className='text-2xl mb-4'>Todo Lists</h1>
                   {todos.map((todo: any, index: number) =>{
                      return <Todo  
-                     setDialogValue={val=>setDialogValue(val)}
-                     setDialogVisible={(newValue)=>setShowDialog(newValue)}
+                     setDialogValue={val=> dispatch(setDialogVal(val))}
+                     setDialogVisible={(newValue)=>   dispatch(setDialogVis(false))}
                      index={index} isChecked={todo.isChecked} todo={todo.todo} dateCreated={todo.dateCreated}
-                                    setOnDialogDone={(f)=> { onDialogDone.current = f ; console.log('setting on dialog done =', onDialogDone.current);}} clearDialog={()=>setDialogValue("")}
+                                    setOnDialogDone={(f)=> { onDialogDone.current = f ; console.log('setting on dialog done =', onDialogDone.current);}} clearDialog={()=> dispatch(setDialogVal(""))}
                                     setOnEdit={(newVal) => isEdit.current = newVal}
                      />
                   })}
