@@ -8,7 +8,7 @@ export type TaskProps = {
     i: number;
     isChecked: boolean;
     todo: string;
-    createdAt: string;
+    createdAt: Date;
     setEdit: (i: number)=>void;
     setMode: (m: boolean)=>void
     setDialog: (m: boolean)=>void
@@ -31,7 +31,7 @@ export default (props: TaskProps)=>{
         <div className="flex justify-center gap-7 w-full">
             <span><input type='checkbox' checked={props.isChecked} onChange={action}/></span>
             <span className={lineStyle}>{props.todo }</span>
-            <span className={lineStyle}>{props.createdAt}</span>
+            <span className={lineStyle}>{props.createdAt.toDateString()}</span>
 
             <span 
              onClick={()=>{
@@ -41,7 +41,9 @@ export default (props: TaskProps)=>{
                 props.setDialog(true);
              }}
              className="text-sm text-green-800 hover:text-green-950 hover:underline"><button>Edit</button></span>
-            <span  onClick={()=>dispatch(removeTask(index))}  className="text-sm text-red-800  hover:text-red-950 hover:underline"><button>Delete</button></span>
+            <span  onClick={()=>dispatch(removeTask(index))} 
+            
+             className="text-sm text-red-800  hover:text-red-950 hover:underline del-btn"><button>Delete</button></span>
         </div>
     )
 }

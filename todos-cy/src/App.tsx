@@ -23,8 +23,11 @@ function App() {
       <>
          <Dialog show={dVisivle} onClose={()=>setDVisible(false)}>
             <div className="w-full h-full flex flex-col justify-evenly gap-10">
-             <input value={newVal}  onChange={e=>setNewVal(e.target.value)} className="border-2 border-blue-700"  type = 'text' placeholder="New Task Val" />
+             <input 
+             id='new-val-int'
+             value={newVal}  onChange={e=>setNewVal(e.target.value)} className="border-2 border-blue-700"  type = 'text' placeholder="New Task Val" />
              <button
+             id ='add-btn'
              onClick={()=>  { mode ?  eTask(): rTask()   ; setNewVal("");  setDVisible(false)}}
               className="w-25
                rounded-xl border-0 bg-green-400 hover:bg-green-700 pt-2 pb-2 pl-10 pr-10">Done</button>
@@ -39,6 +42,7 @@ function App() {
                {tasks.map(
                   (task: any, i: any)=>{
                      return <Task 
+                   
                      setInpt = {(s:string)=>setNewVal(s)}
                      setDialog=  {(m: boolean)=>setDVisible(m)}
                      setMode = {(m: boolean)=>setMode(m)}
