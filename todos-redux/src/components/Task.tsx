@@ -8,7 +8,7 @@ export type TaskProps = {
     i: number;
     isChecked: boolean;
     todo: string;
-    createdAt: Date;
+    createdAt: string;
     setEdit: (i: number)=>void;
     setMode: (m: boolean)=>void
     setDialog: (m: boolean)=>void
@@ -31,7 +31,7 @@ export default (props: TaskProps)=>{
         <div className="flex justify-center gap-7 w-full">
             <span><input type='checkbox' checked={props.isChecked} onChange={action}/></span>
             <span className={lineStyle}>{props.todo }</span>
-            <span className={lineStyle}>{props.createdAt.toDateString()}</span>
+            <span className={lineStyle}>{props.createdAt}</span>
 
             <span 
              onClick={()=>{
