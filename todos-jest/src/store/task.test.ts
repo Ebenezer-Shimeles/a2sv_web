@@ -21,7 +21,6 @@ describe('This tests the whole app functionality', ()=>{
    it('should test that editing a task works', ()=>{
     expect( (store.getState().task.tasks.length)  ).toBe(1);
     store.dispatch(          editTask({index: 0, newTask: "Another Task"})     );
-    console.log(store.getState().task.tasks)
     expect( (store.getState().task.tasks.length)  ).toBe(1);
     expect( (store.getState().task.tasks[0]).todo  ).toBe("Another Task");
     });
@@ -43,6 +42,12 @@ describe('This tests the whole app functionality', ()=>{
         expect( (store.getState().task.tasks.length)  ).toBe(0);
        
     });
+    it('should test that an invalid index does not work or throws an error', ()=>{
+        expect(()=>store.dispatch(removeTask(10))).toThrow(Error);
+    })
+    it('should test that an invalid index does not work or throws an error when index is below zero', ()=>{
+        expect(()=>store.dispatch(removeTask(-1))).toThrow(Error);
+    })
 })
 
 export {}

@@ -13,18 +13,18 @@ function App() {
   const [newVal, setNewVal] = useState<string>("");
   const [editingIndex, setEditingIndex] = useState<number>();
   const rTask = ()=>{
-       dispach(addTask({todo: newVal, createdAt: new Date(), }))
+       dispach(addTask({todo: newVal, createdAt: (new Date()).toDateString()}))
   };
   const eTask = ()=>{
-       console.log({editingIndex}, tasks)
        dispach(editTask({index: editingIndex, newTask: newVal}))
   };
   return (
       <>
          <Dialog show={dVisivle} onClose={()=>setDVisible(false)}>
             <div className="w-full h-full flex flex-col justify-evenly gap-10">
-             <input value={newVal}  onChange={e=>setNewVal(e.target.value)} className="border-2 border-blue-700"  type = 'text' placeholder="New Task Val" />
+             <input  data-testid='new-val' value={newVal}  onChange={e=>setNewVal(e.target.value)} className="border-2 border-blue-700"  type = 'text' placeholder="New Task Val" />
              <button
+             data-testid='m-btn'
              onClick={()=>  { mode ?  eTask(): rTask()   ; setNewVal("");  setDVisible(false)}}
               className="w-25
                rounded-xl border-0 bg-green-400 hover:bg-green-700 pt-2 pb-2 pl-10 pr-10">Done</button>
@@ -39,6 +39,8 @@ function App() {
                {tasks.map(
                   (task: any, i: any)=>{
                      return <Task 
+                     key={`tsk-${i}`}
+                     data-taskid={`tsk-${i}`}
                      setInpt = {(s:string)=>setNewVal(s)}
                      setDialog=  {(m: boolean)=>setDVisible(m)}
                      setMode = {(m: boolean)=>setMode(m)}
@@ -51,6 +53,7 @@ function App() {
             </div>
          
             <button 
+            data-testid ='add-btn'
             onClick={()=>{setDVisible(true); setMode(false)}}
             className="fixed bottom-5 sm:right-8  md:right-20  text-2xl bg-green-400  w-16 h-20 sm:p-4 rounded-3xl hover:shadow-2xl
                               shadow-black
