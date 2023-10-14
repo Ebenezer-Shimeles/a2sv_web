@@ -90,7 +90,7 @@ function App() {
          <div id='egs' className="mt-10 w-11/12  flex flex-col items-center  gap-4">
              {tests.map( (test, u)=>{
                      return (
-                      <Card exp={test.exp} now={test.now} change={test.change} img={test.img} loc={test.loc} pos={test.pos} name={test.name} key={`test-${u}`}/>
+                      <Card  index={u} exp={test.exp} now={test.now} change={test.change} img={test.img} loc={test.loc} pos={test.pos} name={test.name} key={`test-${u}`}/>
                      )
              })}
            
@@ -106,7 +106,7 @@ function App() {
           <input  required type='text' className="w-1/3 rounded-md h-10"/>
           <label className="text-white text-lg ">Last Name</label>
           <input required type='text' className="w-1/3 rounded-md h-10"/>
-          <span><input type='checkbox'/> Check if related to A2SV as a student, mentor or other</span>
+          <span className="text-white"><input type='checkbox' className="text-white"/> Check if related to A2SV as a student, mentor or other</span>
           <button className="  bg-amber-500 text-white pr-60 pl-60 pt-3 pb-3 rounded-lg">
             Subscribe Now
           </button>
